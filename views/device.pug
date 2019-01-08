@@ -1,0 +1,21 @@
+extends layout
+block content
+    h2.mb-3.mt-3 Edit Device
+    form(action='/device/'+showDevice._id, method='post')
+        #form-group
+            label.small Title:
+            input.form-control(name='title', type="text", value=showDevice.title)
+        #form-group
+            label.small.mt-2 Protocol:
+            //-input.form-control(name='protocol', type="text", value= (showDevice.protocol.name + ", " + showDevice.protocol.layer))
+            select.form-control(name='protocol')
+                option(value=showDevice.protocol._id selected='selected')= showDevice.protocol.name + ', ' + showDevice.protocol.layer
+                each prot, i in protocols
+                    option(value=prot._id)= prot.name + ', ' + prot.layer
+        #form-group
+            label.small.mt-2 Description:
+            textarea.form-control(name='description')= showDevice.description
+            hr
+        input.btn.btn-success.mt-2.mr-2.col-sm-4.col-md-2(type='submit', value='Save')
+        a.btn.btn-danger.mt-2.mr-2.col-sm-4.col-md-2.del-dev(href='#', data-id=showDevice._id) Delete
+        a.btn.btn-primary.mt-2.mr-2.col-sm-4.col-md-2(href='/') Back

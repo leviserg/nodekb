@@ -1,0 +1,14 @@
+extends layout
+block navcontent
+    each device, i in devices
+        a(href="/device/" + device._id)= device.title
+block content
+    h2.mt-3.mb-3 #{pagetitle}
+    ul.list-group
+        each device, i in devices
+            li.list-group-item
+                b
+                    a(href="/device/" + device._id)= device.title + "."
+                p.mt-1.mb-0= device.protocol.name + ", " + device.protocol.layer + ". "
+                p.mt-1.mb-0
+                    i= device.description

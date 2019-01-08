@@ -1,0 +1,12 @@
+extends layout
+block content
+    h2.mt-3.mb-3 User Login Form
+    form(action="/users/login", method="post")
+        #form-group
+            label.small Enter Your Nick Name:
+            input.form-control.col-sm-10.col-md-4(name='username', type="text")
+        #form-group
+            label.small.mt-2 Enter Your Password:
+            input.form-control.col-sm-10.col-md-4(name='password', type="password")             
+        input.btn.btn-success.mt-2.mr-2.col-sm-4.col-md-2(type="submit", value="Login")
+        a.btn.btn-primary.mt-2.mr-2.col-sm-4.col-md-2(href="/users/register") Aren't registered?

@@ -1,0 +1,21 @@
+extends layout
+block content
+    h2.mt-3.mb-3 #{pagetitle}
+    ul.list-group
+        each protocol, i in protocols
+            li.list-group-item
+                b
+                    span= protocol.name
+                    = ". "
+                span= protocol.layer
+    br
+    p New Protocol
+        form(action="protocol/add", method="post")
+            #form-group
+                label.small Name:
+                input.form-control(name='prname', type="text")
+            #form-group
+                label.small.mt-2 Layer:
+                input.form-control(name='prlayer', type="text")
+            input.btn.btn-success.mt-2.mr-2.col-sm-4.col-md-2(type="submit", value="Save")
+            a.btn.btn-primary.mt-2.mr-2.col-sm-4.col-md-2(href="/") Back

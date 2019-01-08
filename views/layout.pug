@@ -1,0 +1,107 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title KnowledgeBase
+        link(href="/bower_components/bootstrap/dist/css/bootstrap.css", rel="stylesheet")
+        link(href="/css/mystyles.css", rel="stylesheet")
+    body
+        nav.navbar.navbar-expand-lg.navbar-dark.bg-info
+            a.navbar-brand(href='/') Node Devices DB
+            button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarContent', aria-controls='navbarContent', aria-expanded='false', aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbarContent.collapse.navbar-collapse
+                ul.navbar-nav.mr-auto
+                    li.nav-item.text-center
+                        a.nav-link(href='/') Home
+                    li.nav-item.text-center
+                        a.nav-link(href='/protocol') Protocols
+                    if user
+                        li.nav-item.text-center
+                            a.nav-link(href='/device/add') Add Device
+                    li.nav-item.text-center.dropdown
+                        a.nav-link Devices
+                        .dropdown-content
+                            block navcontent
+                form.navbar-form.mb-0(action='/search/', method='get')
+                    .input-group
+                        input#searchtxt.form-control(type='text', name='searchval', placeholder='Protocol')
+                        input.btn.btn-info.ml-2(type='submit', value='Search')
+                ul.navbar-nav.ml-auto         
+                    if user
+                        li.nav-item.active.text-center
+                            a.nav-link(href='/users/logout') Logout
+                    else
+                        li.nav-item.active.text-center.dropdown
+                            a.nav-link User Control
+                            .dropdown-content
+                                a#LoginBtnId(href='#') Modal 
+                                a(href='/users/login') Login
+                                a(href='/users/register') Register
+        .container
+            .mt-2
+            != messages('message', locals)
+            if errors
+                each error, i in errors
+                    .alert.alert-danger #{error.msg}
+            block content
+            br
+        footer.footer
+            hr
+            p.small Copyright &copy; Sergey Levitskiy, 2018-2019
+    #LoginModal.modal.modal-fade(tabindex='2')
+        .modal-dialog.modal-md
+            .modal-content
+                .modal-header.mb-0.mt-0
+                    h5.modal-title Login/Register Form
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    .container
+                        ul.nav.nav-tabs
+                            li.active
+                                a.nav-link(data-toggle='tab', title='Already registered?', href='#login') Login
+                            li
+                                a.nav-link(data-toggle='tab', title="Aren't registered?", href='#register') Register
+                        .tab-content
+                            #login.tab-pane.in.active
+                                br
+                                h2.mt-3.mb-3 User Login Form
+                                form(action="/users/mdlogin", method="post")
+                                    #form-group
+                                        label Enter Your Nick Name:
+                                        input.form-control(name='username', type="text")
+                                    #form-group
+                                        label.mt-2 Enter Your Password:
+                                        input.form-control(name='password', type="password")             
+                                    input.btn.btn-primary.mt-2.col-12(type="submit", value="Login")
+                            #register.tab-pane.fade
+                                br
+                                h2.mt-3.mb-3 User Registration Form
+                                p New User Data
+                                    form(action="/users/mdregister", method="post")
+                                        #form-group
+                                            label.small Enter Your Name:*
+                                            input.form-control(name='username', type="text")
+                                        #form-group
+                                            label.small Enter Your E-mail:*
+                                            input.form-control(name='email', type="text")
+                                        #form-group
+                                            label.small Enter Your Nick Name:*
+                                            input.form-control(name='nickname', type="text")
+                                        #form-group
+                                            label.small.mt-2 Enter Your Password:*
+                                            input.form-control(name='pwd', type="password")
+                                        #form-group
+                                            label.small.mt-2 Confirm Your Password:*
+                                            input.form-control(name='pwd2', type="password")                
+                                        input.btn.btn-primary.mt-2.col-12(type="submit", value="Save")
+                //-.modal-footer
+                //-    hr
+                        
+        script(type='text/javascript', src='/bower_components/jquery/dist/jquery.min.js')
+        script(type='text/javascript', src='/bower_components/bootstrap/dist/js/bootstrap.js')
+        script(type='text/javascript', src='/js/myscripts.js')
+
+        

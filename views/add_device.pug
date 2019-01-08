@@ -1,0 +1,20 @@
+extends layout
+block content
+    h2.mb-3.mt-3 #{pagetitle}
+    form(action="/device/add", method="post")
+        #form-group
+            label.small Title:
+            input.form-control(name='title', type="text")
+        #form-group
+            label.small.mt-2 Protocol:
+            select.form-control(name='protocol')
+                option(value='0', selected='selected') Select protocol...
+                each prot, i in protocols
+                    option(value=prot._id)= prot.name
+                        = ", "
+                        = prot.layer
+        #form-group
+            label.small.mt-2 Description:
+            textarea.form-control(name="description")
+        input.btn.btn-success.mt-2.mr-2.col-sm-4.col-md-2(type="submit", value="Save")
+        a.btn.btn-primary.mt-2.mr-2.col-sm-4.col-md-2(href="/") Back
